@@ -2,10 +2,10 @@
 
 namespace App;
 
-Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
 {
-    use MicroKernelTrait; 
+    use MicroKernelTrait;
 }
