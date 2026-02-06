@@ -1,0 +1,27 @@
+events:
+- refresh
+    - debt_statistics
+    - debt_collection_all
+    - debt_collection_creditors
+    - debt_collection_debtors
+    - debt_collection_payments
+    - wallet_balance
+    -
+
+notification_events:
+- uid: string
+- event: string
+- metadata: string|null
+- acknowledged: boolean
+- created_at: datetime
+- last_modified_at: datetime
+- user_uid: string -> user.uid
+
+endpoints:
+- /api/notifications/events/unread
+    - response:
+        - data: [collection]
+            - event: string
+- /api/notifications/events/acknowledge
+    body:
+        - event: string

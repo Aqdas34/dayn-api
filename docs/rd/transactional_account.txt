@@ -1,0 +1,17 @@
+transactional_accounts:
+- uid: string
+- accountNumber: string
+- accountName: string
+- customerName: string
+- paymentProvider: string
+- amountSpecified: decimal
+- amountCharged: decimal
+- amountPaid: decimal
+- fee: decimal
+- feeRatio: decimal
+- feeType: string
+- providerReference: string
+- transactionReference: string
+- responseObject: string
+- createdAt: datetime
+- lastModifiedAt: datetime

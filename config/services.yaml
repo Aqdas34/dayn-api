@@ -1,0 +1,52 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    twilio_account_sid: '%env(TWILIO_ACCOUNT_SID)%'
+    twilio_auth_token: '%env(TWILIO_AUTH_TOKEN)%'
+    twilio_number: '%env(TWILIO_NUMBER)%'
+    sender_email_address: '%env(MAILER_SENDER_EMAIL_ADDRESS)%'
+    monnify_api_key: '%env(monnify_CLIENT_ID)%'
+    monnify_secret_key: '%env(monnify_CLIENT_SECRET)%'
+    monnify_base_url: '%env(monnify_BASE_URL)%'
+    monnify_contract_code: '%env(MONNIFY_CONTRACT_CODE)%'
+
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # Explicit configuration for Monnify services
+    App\Service\MonnifyService:
+        arguments:
+            $apiKey: '%monnify_api_key%'
+            $secretKey: '%monnify_secret_key%'
+            $baseUrl: '%monnify_base_url%'
+
+    # Explicit configuration for MonnifyPaymentProcessor
+    App\Service\MonnifyPaymentProcessor:
+        arguments:
+            $contractCode: '%monnify_contract_code%'
+
+    App\Service\WalletPayoutService:
+        arguments:
+            $sourceAccountNumber: '%monnify_contract_code%'
+
+    App\Service\PaymentProcessor\PaymentProcessorProvider:
+        public: true
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones

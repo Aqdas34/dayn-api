@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Model\Integration\Monnify;
+
+enum MonnifyWebhookEventType: string
+{
+    case SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
+    case FAILED_TRANSACTION = 'FAILED_TRANSACTION';
+    case TRANSFER_SUCCESSFUL = 'TRANSFER_SUCCESSFUL';
+    case TRANSFER_FAILED = 'TRANSFER_FAILED';
+    case TRANSFER_REVERSED = 'TRANSFER_REVERSED';
+}

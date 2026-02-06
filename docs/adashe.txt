@@ -1,0 +1,23 @@
+There'll be one account where by everyone deposits 
+
+This adashe group will be created be one person where by he can also add another person to manage it with him just incase
+
+Then there'll be a need for an adashe group ID that will be generated when a new adashe is created so that people can access that adashe and it is subject to the acceptance by the group creator
+
+The person to collect in that month will be fixed at the top 
+
+And i think people should select there preferred slot just like how it's done
+
+People who have paid and are yet to pay should be indicated as paid or not paid
+
+money_contribution:
+- uid: string
+- code: string
+- status: string (enum)
+- interval_type: string (enum: DAY | WEEK | MONTH | YEAR)
+- interval: int
+- 
+
+contribution_member:
+- uid: string
+- user_

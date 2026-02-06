@@ -1,0 +1,13 @@
+<div>
+    <h2>Hello, {{ fullName }}</h2>
+
+    <p>You have a new debt request. Kindly review and confirm on the Dayn app!</p>
+    <ul>
+        <li>Initiator: {{ creatorName }}</li>
+        <li>Initiator Type: {{ creatorType }}</li>
+        <li>Amount: {{ amount|number_format }}</li>
+        <li>Description: {{ debtDescription }}</li>
+    </ul>
+
+    <p>From: Dayn</p>
+</div>

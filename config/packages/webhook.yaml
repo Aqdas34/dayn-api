@@ -1,0 +1,6 @@
+framework:
+  webhook:
+    routing:
+      monnify:
+        service: App\Webhook\MonnifyRequestParser
+        secret: '%env(resolve:monnify_CLIENT_SECRET)%'
