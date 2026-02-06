@@ -16,14 +16,14 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-        api:
-            pattern: ^/api
-            stateless: true
-            jwt: ~  
+        # api:
+            # pattern: ^/api
+            # stateless: true
+            # jwt: ~  
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
-            custom_authenticators:
-                - App\Security\ApiAuthenticator
+            # custom_authenticators:
+            #     - App\Security\ApiAuthenticator
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
