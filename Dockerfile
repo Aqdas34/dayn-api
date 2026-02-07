@@ -1,8 +1,8 @@
 FROM php:8.2-cli
 
-# System dependencies
+# System dependencies (SQLite included)
 RUN apt-get update && apt-get install -y \
-    git unzip libpq-dev \
+    git unzip libpq-dev sqlite3 \
   && docker-php-ext-install pdo pdo_pgsql \
   && rm -rf /var/lib/apt/lists/*
 
@@ -12,13 +12,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 
-# Symfony needs writable var directory
+# Symfony writable directory
 RUN mkdir -p var && chmod -R 777 var
 
-# Install dependencies without auto-scripts (prevents dotenv crash)
+# Install dependencies WITHOUT running auto-scripts
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# 🚀 CREATE FULL .env AT RUNTIME (YOUR VALUES)
+# 🚀 Runtime
 CMD sh -c '\
 echo "APP_ENV=prod" > .env && \
 echo "APP_DEBUG=0" >> .env && \
@@ -35,5 +35,9 @@ echo "monnify_CLIENT_SECRET=C427FM0C4PQ3RHZBCBYLBVV7HM4Y098F" >> .env && \
 echo "monnify_BASE_URL=https://sandbox.monnify.com" >> .env && \
 echo "MONNIFY_CONTRACT_CODE=4090754839" >> .env && \
 echo "monnify_ENVIRONMENT=SANDBOX" >> .env && \
+if [ ! -f var/data.db ]; then \
+  echo "Initializing database from SQL file..."; \
+  sqlite3 var/data.db < daynappc_platform_db.sql; \
+fi && \
 php -S 0.0.0.0:${PORT:-8000} -t public public/index.php \
 '
